@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import {
     faBed,
@@ -15,6 +15,7 @@ import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
 import PersonCounter from "../PersonsCounter/PersonCounter";
+import { SearchContext } from "../../Context/SearchContext";
 const Plans = () => {
     const [showCal, setShowCal] = useState(false);
     const [date, setDate] = useState([
@@ -25,11 +26,7 @@ const Plans = () => {
         },
     ]);
     const [counter, setCounter] = useState(false);
-    const [persons, setPersons] = useState({
-        adult: 1,
-        children: 0,
-        rooms: 1,
-    });
+    const { persons, setPersons } = useContext(SearchContext);
 
     return (
         <div className="relative container mx-auto w-full max-w-[1024px] p-6 ">
@@ -128,7 +125,7 @@ const Plans = () => {
                         onClick={() => {
                             setCounter(!counter);
                         }}>
-                        {`${persons.adult} adult. ${persons.children} children. ${persons.rooms} room`}
+                        {`${persons.adult} adult. ${persons.children} children. ${persons.room} room`}
                     </span>
                     {counter && <PersonCounter />}
                 </div>
